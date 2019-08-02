@@ -1,5 +1,4 @@
-
-package main
+package victoria
 
 //
 // A definition point
@@ -7,8 +6,8 @@ package main
 // Records the line and column a certain object has been defined
 //
 type Definition struct {
-	file string
-	line uint32
+	file   string
+	line   uint32
 	column uint32
 }
 
@@ -16,8 +15,8 @@ type Definition struct {
 // A type
 //
 type NamedType struct {
-	def Definition
-	name string
+	def     Definition
+	name    string
 	methods map[string]Method
 }
 
@@ -25,13 +24,14 @@ type NamedType struct {
 // A function
 //
 type Function struct {
-	def Definition
+	name string
+	def  Definition
 	args []MethodArg
-	ret NamedType
+	ret  NamedType
 }
 
 type MethodArg struct {
-	name string
+	name  string
 	ntype *NamedType
 }
 
@@ -46,18 +46,18 @@ type Method struct {
 
 // A module
 type Module struct {
-	def Definition
-	name string
-	types []NamedType
+	def       Definition
+	name      string
+	types     []NamedType
 	functions []Function
 }
 
 // A file
-type File struct {
-	name string // filename relative to the project root
-	definedMethods map[string]*Method
+type ParsedFile struct {
+	name             string // filename relative to the project root
+	definedMethods   map[string]*Method
 	definedFunctions map[string]*Function
-	definedTypes map[string]*NamedType
+	definedTypes     map[string]*NamedType
 }
 
 // The project context
@@ -74,8 +74,8 @@ type Context struct {
 	name string // An alias?
 	root string // The project root
 
-	currentFile *File
-	currentModule *Module
+	currentParsedFile *ParsedFile
+	currentModule     *Module
 
 	position Definition // the current cursor position
 }

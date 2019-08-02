@@ -1,11 +1,10 @@
-
-package main
+package victoria
 
 import "fmt"
 
 func main() {
 	p := Parser{}
-	p.Parse()
-	
-	fmt.Println("Hello world " + p.data)
+	p.Parse("a")
+
+	fmt.Println("Hello world " + p.file.name)
 }
